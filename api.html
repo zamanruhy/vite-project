@@ -1,0 +1,854 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>API</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 3px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	text-indent: -1.7em;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-block;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1.25em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, "Apple Color Emoji", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(55, 53, 47, 1);
+}
+.highlight-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.highlight-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.highlight-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.highlight-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.highlight-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.highlight-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.highlight-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.highlight-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.highlight-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.highlight-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.highlight-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.highlight-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.highlight-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.highlight-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.highlight-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(120, 119, 116, 1);
+	fill: rgba(120, 119, 116, 1);
+}
+.block-color-brown {
+	color: rgba(159, 107, 83, 1);
+	fill: rgba(159, 107, 83, 1);
+}
+.block-color-orange {
+	color: rgba(217, 115, 13, 1);
+	fill: rgba(217, 115, 13, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 145, 47, 1);
+	fill: rgba(203, 145, 47, 1);
+}
+.block-color-teal {
+	color: rgba(68, 131, 97, 1);
+	fill: rgba(68, 131, 97, 1);
+}
+.block-color-blue {
+	color: rgba(51, 126, 169, 1);
+	fill: rgba(51, 126, 169, 1);
+}
+.block-color-purple {
+	color: rgba(144, 101, 176, 1);
+	fill: rgba(144, 101, 176, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(212, 76, 71, 1);
+	fill: rgba(212, 76, 71, 1);
+}
+.block-color-gray_background {
+	background: rgba(241, 241, 239, 1);
+}
+.block-color-brown_background {
+	background: rgba(244, 238, 238, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 236, 221, 1);
+}
+.block-color-yellow_background {
+	background: rgba(251, 243, 219, 1);
+}
+.block-color-teal_background {
+	background: rgba(237, 243, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(231, 243, 248, 1);
+}
+.block-color-purple_background {
+	background: rgba(244, 240, 247, 0.8);
+}
+.block-color-pink_background {
+	background: rgba(249, 238, 243, 0.8);
+}
+.block-color-red_background {
+	background: rgba(253, 235, 236, 1);
+}
+.select-value-color-pink { background-color: rgba(245, 224, 233, 1); }
+.select-value-color-purple { background-color: rgba(232, 222, 238, 1); }
+.select-value-color-green { background-color: rgba(219, 237, 219, 1); }
+.select-value-color-gray { background-color: rgba(227, 226, 224, 1); }
+.select-value-color-opaquegray { background-color: rgba(255, 255, 255, 0.0375); }
+.select-value-color-orange { background-color: rgba(250, 222, 201, 1); }
+.select-value-color-brown { background-color: rgba(238, 224, 218, 1); }
+.select-value-color-red { background-color: rgba(255, 226, 221, 1); }
+.select-value-color-yellow { background-color: rgba(253, 236, 200, 1); }
+.select-value-color-blue { background-color: rgba(211, 229, 239, 1); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="001d8739-40d2-45b9-9f2a-e6537798fe18" class="page sans"><header><h1 class="page-title">API</h1></header><div class="page-body"><h2 id="c106618f-2f8b-4093-b956-d4738cd15567" class="">Справка</h2><p id="e95df647-16db-411f-bad1-b5aa937dd370" class="">BaseURL: <code>https://app.joinmute.com</code></p><p id="a46d783f-a815-412a-a0fe-2715b2f53232" class="">
+</p><hr id="9501b966-13f3-44c4-9a1a-e506a808f42b"/><ul id="3191caac-6f55-471a-9698-f9e7aac33b7d" class="toggle"><li><details open=""><summary><span style="border-bottom:0.05em solid">Авторизация в Apple</span></summary><p id="5c480e95-a3d3-48cb-a327-47c486527cae" class="">Пример компонента кнопки Sign In With Apple на Vue с Typescript</p><pre id="2d537fc3-728b-47cc-9dfe-3794ffa00b32" class="code"><code>&lt;template&gt;
+  &lt;div id=&quot;appleid-signin&quot; class=&quot;signin-button&quot; data-color=&quot;black&quot; data-border=&quot;true&quot; data-type=&quot;sign in&quot;&gt;&lt;/div&gt;
+&lt;/template&gt;
+    
+&lt;script lang=&quot;ts&quot;&gt;
+import { Options, Vue } from &quot;vue-class-component&quot;;
+import { AppleResponse } from &quot;./types&quot;;
+
+declare global {
+    interface Window {
+        AppleID: any;
+    }
+}
+
+@Options({
+    props: {
+        callOnSuccess: Function,
+        callOnFailure: Function
+    },
+    mounted() {
+        window.AppleID.auth.init({
+            clientId: &#x27;com.mute.web&#x27;,
+            scope: &#x27;name email&#x27;,
+            redirectURI: &#x27;https://joinmute.com&#x27;,
+            state: new Date().getUTCMilliseconds().toString(),
+            usePopup: true
+        });
+        document.addEventListener(&#x27;AppleIDSignInOnSuccess&#x27;, this.onSuccess);
+        document.addEventListener(&#x27;AppleIDSignInOnFailure&#x27;, this.onFailure);
+    },
+
+    beforeUnmount() {
+        document.removeEventListener(&#x27;AppleIDSignInOnSuccess&#x27;, this.onSuccess);
+        document.removeEventListener(&#x27;AppleIDSignInOnFailure&#x27;, this.onFailure);
+    }
+})
+export default class AppleSignIn extends Vue {
+    callOnSuccess!: Function
+    callOnFailure!: Function
+
+    onSuccess(data: any): void {
+        if (this.callOnSuccess) {
+            const appleUserData = this.getAppleDataFromToken(data.detail.authorization.id_token);
+            const authData: AppleResponse = { authorization: data.detail.authorization, userData: appleUserData, user: data.detail.user };
+            this.callOnSuccess(authData);
+        }
+    }
+
+    onFailure(): void {
+        if (this.callOnFailure) {
+            this.callOnFailure(&#x27;Error while try to login with Apple Service.&#x27;);
+        }
+    }
+
+    getAppleDataFromToken(token: string) {
+        var base64Url = token.split(&#x27;.&#x27;)[1];
+        var base64 = base64Url.replace(/-/g, &#x27;+&#x27;).replace(/_/g, &#x27;/&#x27;);
+        var jsonPayload = decodeURIComponent(atob(base64).split(&#x27;&#x27;).map(function(c) {
+        return &#x27;%&#x27; + (&#x27;00&#x27; + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(&#x27;&#x27;));
+        return JSON.parse(jsonPayload);
+    }
+}
+&lt;/script&gt;</code></pre><p id="7afc4d85-d236-4e39-aa7a-2e4fd8a08f60" class="">
+</p><p id="a2d9f593-ad33-438e-933d-f6351d8c05c6" class="">Обработчик клика по кнопке добавляется при инициализации скрипта Apple, нужно добавить только event listener на события <code>AppleIDSignInOnSuccess</code> и <code>AppleIDSignInOnFailure</code> (в сниппете выше всё есть) и стилизовать размеры кнопки.</p><p id="66310270-4262-44c0-bec0-7f1ca09b686b" class="">От Apple приходит такой ответ:</p><pre id="d14b785b-541d-4c14-87b6-a91e0000b639" class="code"><code>{
+	&quot;authorization&quot;: {
+		&quot;code&quot;: &quot;[CODE]&quot;,
+		&quot;id_token&quot;: &quot;[ID_TOKEN]&quot;,
+		&quot;state&quot;: &quot;[STATE]&quot;
+	},
+	&quot;user&quot;: {
+		&quot;email&quot;: &quot;[EMAIL]&quot;,
+		&quot;name&quot;: {
+			&quot;firstName&quot;: &quot;[FIRST_NAME]&quot;,
+			&quot;lastName&quot;: &quot;[LAST_NAME]&quot;
+		}
+	}
+}</code></pre><p id="acd46c12-c781-4a8f-b430-589510788f03" class=""><code>id_token</code> нужно спарсить, чтобы достать из него <code>user app identifier</code> – уникальный ID пользователя в приложении (в сниппете выше всё есть).</p><p id="0d55f70e-9db6-4779-9825-6645729fd657" class="">Структура после парсинга <code>id_token</code></p><pre id="0a3fdc4b-93ed-46b9-bd09-cf71bbf0e383" class="code"><code>{
+	aud: string
+  auth_time: string
+  c_hash: string
+  email: string
+  email_verified: string
+  exp: string
+  iat: string
+  is_private_email: string
+  iss: string
+  nonce_supported: boolean
+  sub: string
+}</code></pre><p id="ac8562a1-fd6a-4778-a3bf-e5471ccb8929" class=""><code>sub</code> – это как раз <code>user app identifier</code>.</p><p id="c800d618-2e91-4fbf-9734-25d47338b913" class="">При авторизации Apple отдаёт <code>authorization code</code> в объекте <code>detail</code> (в сниппете выше всё есть). Код нужен для того, чтобы нам со своего сервера обратиться к серверам Apple и получить <code>access</code> и <code>refresh</code> токены.</p><p id="bee3b5a9-c189-4429-94b8-b50e4f09fb28" class="">После успешной авторизации в Apple нужно вызвать <a href="API%20001d873940d245b99f2ae6537798fe18.html"><span style="border-bottom:0.05em solid">API для авторизации</span></a> на нашем сервере.</p></details></li></ul><hr id="e875fcc2-7889-400c-8546-8b776e0d8456"/><ul id="9237d799-a9f2-4593-bf53-109bdf1af885" class="toggle"><li><details open=""><summary><span style="border-bottom:0.05em solid">Авторизация / создание пользователя</span></summary><p id="98fd7a94-c383-44fe-8561-cf8027d853e4" class=""><strong>Method: </strong><code>POST</code></p><hr id="a9e8fe92-e2b1-419b-9248-3e3837bf57a7"/><p id="ec8f8dcd-8a8b-4b10-a0a5-b2cd361be5b8" class=""><strong>Path:</strong><div class="indented"><p id="7e24005b-6fbf-4637-9645-2958c697ccb4" class=""> <code>/auth/users/authorize</code></p></div></p><hr id="89184caa-6f2e-4dcd-a4b7-0a9664cc0be9"/><p id="1d266b4e-10da-49cd-9b53-928ae9bb8a30" class=""><strong>Headers: </strong><div class="indented"><p id="6b0c90f3-2712-4eff-9b88-6a1b414f21e3" class=""><code>User-Agent:</code> <code>Mute Web</code></p></div></p><hr id="a5717209-ffa1-4d8d-b30a-f87a7db072ee"/><p id="6616d949-5ce3-4071-ab2e-c317218e3bad" class=""><strong>Params:</strong></p><pre id="15a6c9d2-8992-4879-9b7e-ced965dd3075" class="code"><code>identity: string
+name?: string
+email?: string
+signInMethod: &quot;apple&quot;
+locale?: &quot;ru&quot;
+createdWithWeb?: &quot;true&quot;
+appleAuthorizationCode?: string</code></pre><p id="bc647731-92e6-4313-81b2-2cd6f96fad86" class=""><code>identity</code> – идентификатор пользователя, полученный от Apple</p><p id="e6d8d365-a229-4b08-8817-481d4d6b8094" class=""><code>name</code> – first name пользователя</p><hr id="1e56612c-14e6-43e8-b335-41587ab6e860"/><p id="5a6d27cd-648f-44a1-957c-bb7c1087dd01" class=""><strong>Response:</strong></p><p id="db29eb00-3b22-444a-9f3b-802081ce53ba" class="">Type: <code>JSON</code></p><pre id="4751e672-be64-4d98-93bd-d8db8c01e2cb" class="code"><code>{
+    &quot;id&quot;: &quot;562f44bf-4918-48b5-99c3-94f16e648e85&quot;,
+    &quot;identity&quot;: &quot;002032.c55aa794f14c4d21ac72cb1ab6d8528b.0842&quot;,
+    &quot;name&quot;: &quot;Michael&quot;,
+    &quot;locale&quot;: &quot;en&quot;,
+    &quot;profileImage&quot;: &quot;a597d9f9-886d-46b9-8be9-c9472441a058.png&quot;,
+    &quot;isNotificationEnabled&quot;: true,
+    &quot;freeListens&quot;: 3,
+    &quot;isOnboardingComplete&quot;: true,
+    &quot;activeSubscription&quot;: {
+        &quot;id&quot;: &quot;2aaa80ba-000f-5000-9000-186281989733&quot;,
+        &quot;status&quot;: &quot;succeeded&quot;,
+        &quot;paid&quot;: true,
+        &quot;isIntroductoryOffer&quot;: false,
+        &quot;amount&quot;: &quot;599.00&quot;,
+        &quot;currency&quot;: &quot;RUB&quot;,
+        &quot;paymentMethod&quot;: &quot;bank_card&quot;,
+        &quot;subDayStart&quot;: &quot;2022-09-07&quot;,
+        &quot;subDayEnd&quot;: &quot;2022-10-07&quot;,
+        &quot;subscription&quot;: {
+            &quot;id&quot;: &quot;37fb71a0-5ead-409c-a662-15ff7f2d77a5&quot;,
+            &quot;period&quot;: 1,
+            &quot;price&quot;: 599,
+            &quot;bundle&quot;: &quot;com.mute.app.subscription.regular.month&quot;,
+            &quot;translation&quot;: [
+                {
+                    &quot;id&quot;: 11,
+                    &quot;displayName&quot;: &quot;Junior subscription&quot;
+                }
+            ]
+        }
+    }
+}</code></pre><p id="0f748bfd-fed1-4115-99d1-d36857ed4e5f" class=""><code>activeSubscription</code> можеть иметь два значения: объект или null в зависимости от того, есть ли у пользователя активная подписка.</p></details></li></ul><hr id="ab7f125c-67aa-4dd7-ada6-4cb055e63731"/><ul id="3ad4523e-9c57-4904-8e1c-52da13291459" class="toggle"><li><details open=""><summary><span style="border-bottom:0.05em solid">Логин (получение и обновление JWT)</span></summary><p id="aa248147-9c07-4dcb-b817-fb3bea9ec774" class=""><strong>Method: </strong><code>POST</code></p><hr id="4f0ff494-a0a5-4d62-b5a2-6953599d2977"/><p id="e3bda15e-d9c3-48ad-ba2d-f1d17286972c" class=""><strong>Path:</strong><div class="indented"><p id="505de3b0-6471-4b83-b2b3-f59cfad7dd0d" class=""> <code>/auth/users/login</code></p></div></p><hr id="b0e8733e-7a61-4e0a-82b2-c4cadb316e16"/><p id="1b64a19a-c02f-4732-bbb1-e905cb011ba3" class=""><strong>Headers: </strong><div class="indented"><p id="4c62dea3-f0e2-4ca1-ad24-9467a92932a8" class=""><code>User-Agent:</code> <code>Mute Web</code></p></div></p><hr id="546f060b-82c5-44da-b5e6-479d88e9c9c4"/><p id="94922d75-4305-4761-8a5f-92ddf71f34a2" class=""><strong>Params:</strong></p><pre id="2fd01ce2-a160-49d2-80ed-be8d726d8bb1" class="code"><code>id: string
+identity: string</code></pre><p id="fc5b0f73-3535-4968-abf4-944248294072" class=""><strong>Response:</strong></p><p id="f863e0c5-3d8c-4b97-bcf8-9cc52295eec1" class="">Type: <code>JSON</code></p><pre id="b4b3d82d-acf5-421c-8bf0-3790de08fded" class="code"><code>{
+	user: {
+    &quot;id&quot;: &quot;562f44bf-4918-48b5-99c3-94f16e648e85&quot;,
+    &quot;identity&quot;: &quot;002032.c55aa794f14c4d21ac72cb1ab6d8528b.0842&quot;,
+    &quot;name&quot;: &quot;Michael&quot;,
+    &quot;locale&quot;: &quot;en&quot;,
+    &quot;profileImage&quot;: &quot;a597d9f9-886d-46b9-8be9-c9472441a058.png&quot;,
+    &quot;isNotificationEnabled&quot;: true,
+    &quot;freeListens&quot;: 3,
+    &quot;isOnboardingComplete&quot;: true,
+    &quot;activeSubscription&quot;: null
+	},
+	access_token: &quot;eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ&quot;
+}</code></pre><p id="03830a46-1cb6-44cb-9ec1-ff6cb45e810f" class=""><code>activeSubscription</code> можеть иметь два значения: объект или null в зависимости от того, есть ли у пользователя активная подписка.</p><p id="0c02be8c-4762-44fc-9005-aa6ba7554c25" class=""><code>access_token</code> – токен для доступа к API. Используется во всех вызовах, кроме авторизации и логина. Имеет время жизни. Если на запрос сервер отвечает <code>401</code>, то токен надо обновить через этот метод.</p></details></li></ul><hr id="6bee576b-1cb5-40e3-803c-f1a3a0f44689"/><ul id="52b930ff-1ab8-4e94-8496-56fa82439c97" class="toggle"><li><details open=""><summary><span style="border-bottom:0.05em solid">Получение всех доступных подписок</span></summary><p id="0f0054b4-68a7-4331-a1d9-0cf0d2813449" class=""><strong>Method: </strong><code>GET</code></p><hr id="3878b738-201c-46ed-a9a0-9ee039bc67d4"/><p id="15bca4c8-a56e-41b1-9860-35eccd7f897e" class=""><strong>Path:</strong><div class="indented"><p id="13349c85-cbde-4c48-9827-271a49d54764" class=""> <code>/webapi/subscriptions/all/ru</code></p></div></p><hr id="c3eb190d-4411-45b8-bf9b-b8f69fef7da4"/><p id="8f7a388b-9ef1-4a21-8a1b-6084f7842510" class=""><strong>Headers: </strong><div class="indented"><p id="ad294204-7b7b-45e4-8880-26c99439870d" class=""><code>Authorization:</code> <code>Bearer ${ token }</code></p><p id="38b7e1c1-e197-4683-b9dd-31fbb6923ad5" class=""><code>User-Agent:</code> <code>Mute Web</code></p></div></p><hr id="2fb7fff6-e54d-4e06-80c5-fc5143f7fb4e"/><p id="3212a884-1266-4ce5-ac8c-4b0a19faa4a9" class=""><strong>Response:</strong></p><p id="74c217a2-bbfb-4858-9ca7-44ae45fb3541" class="">Type: <code>Array of Objects</code></p><pre id="768e81e7-396d-4967-ba9d-c63c03778d6d" class="code"><code>&quot;id&quot;: &quot;806e6a2b-c03f-4e63-8a44-b6873498ed99&quot;,
+&quot;period&quot;: 12,
+&quot;price&quot;: 5999,
+&quot;bundle&quot;: &quot;com.mute.app.subscription.regular.year&quot;,
+&quot;translation&quot;: [
+	{
+		&quot;id&quot;: 6,
+		&quot;displayName&quot;: &quot;Продвинутая&quot;
+	}
+]</code></pre></details></li></ul><hr id="ad6a32b0-41f8-433f-9da1-5fc1c12186ed"/><ul id="08384b8c-13c4-48e4-b5c5-e2d0f78a8c8a" class="toggle"><li><details open=""><summary><span style="border-bottom:0.05em solid">Получение сохранённых способов оплаты для пользователя</span></summary><p id="5305aded-3449-44da-8f7d-a5150fd1409f" class=""><strong>Method: </strong><code>GET</code></p><hr id="e61ecb0b-f0b1-4379-9a0b-80a3ea23a3e6"/><p id="62c9b717-0e08-470c-9590-96f7cb0c3f50" class=""><strong>Path:</strong><div class="indented"><p id="845b74ac-6975-4562-8bfc-44c537daa701" class=""> <code>webapi/users/:userID/payment-methods/all</code></p><p id="ce211c2e-feb3-4dcb-8d5b-efdf48cdb631" class=""><code>userID</code> – id пользователя (UUID).</p></div></p><hr id="4958d33b-8e50-42c4-ad76-d4365141f3cb"/><p id="27a9cd06-daa0-46e8-bf7f-6cecf5849d3b" class=""><strong>Headers: </strong><div class="indented"><p id="163d044d-0a19-4862-9944-a05b850233d7" class=""><code>Authorization:</code> <code>Bearer ${ token }</code></p><p id="8f63dfa5-1d58-4c22-b78c-885d6a2cabf0" class=""><code>User-Agent:</code> <code>Mute Web</code></p></div></p><hr id="ae4df22f-dbb4-4c33-98b0-ed83834afb87"/><p id="1e14d6f9-7a64-4c2d-98b8-ae517d4dec1e" class=""><strong>Response:</strong></p><p id="e232ff1c-a7ba-4acc-a939-4019c3f12bd9" class="">Type: <code>Array of Objects</code></p><pre id="2e67adf6-688b-434e-9881-3e17e3ac4c77" class="code"><code>[
+    {
+        &quot;id&quot;: 14,
+        &quot;paymentMethodID&quot;: &quot;211180ba-000f-5000-9000-186281989733&quot;,
+        &quot;title&quot;: &quot;Bank card *4444&quot;,
+        &quot;first6&quot;: &quot;555555&quot;,
+        &quot;last4&quot;: &quot;4444&quot;,
+        &quot;expiryMonth&quot;: &quot;01&quot;,
+        &quot;expiryYear&quot;: &quot;2024&quot;,
+        &quot;cardType&quot;: &quot;MasterCard&quot;,
+        &quot;isPrimaryMethod&quot;: true
+    }
+]</code></pre><p id="a75f335d-929d-49fe-ab4f-2bf509f7f87d" class=""><code>isPrimaryMethod</code> – указывает на то, какой из добавленных способов используется для оплаты</p></details></li></ul><hr id="94f74e64-f91e-4334-bcb8-d60bb9d66458"/><ul id="37188c27-9aed-4258-89f5-71f2341ebd32" class="toggle"><li><details open=""><summary><span style="border-bottom:0.05em solid">Удалить способ оплаты</span></summary><p id="1d7a01ba-dfa1-4ef4-8d43-50068215d9bf" class="">Удалить активный или единственный способ оплаты нельзя.</p><p id="acf8fc80-727c-4679-bbd1-7c2444016ce8" class="">
+</p><p id="76f9b5a5-70b3-4912-b466-ee97350e6436" class=""><strong>Method: </strong><code>DELETE</code></p><hr id="18959a54-f1f0-4d8c-9821-230b2c602ab7"/><p id="f9a40215-6ead-4501-bb04-fb2c634b93f0" class=""><strong>Path:</strong><div class="indented"><p id="f1b01fb7-53b6-4ff7-ae8d-cc7d35b029d5" class=""><code>/users/:userID/payment-methods/delete/:methodID</code></p><p id="b806d561-26c9-4ef9-8a2d-4cfeaf544c99" class=""><code>userID</code> – id пользователя (UUID);</p><p id="c440c0a2-8f30-4c9a-8053-7c714cc0adf4" class=""><code>methodID</code> – id способа оплаты (UUID).</p></div></p><p id="3b04602b-7c1e-4302-b8d6-76647df426e5" class=""><strong>Headers: </strong><div class="indented"><p id="ed86385f-c886-42bb-939f-f9b883fcc171" class=""><code>Authorization:</code> <code>Bearer ${ token }</code></p><p id="3b742da2-20de-451e-a71f-0267f6286f3d" class=""><code>User-Agent:</code> <code>Mute Web</code></p></div></p><hr id="0325bf5b-b5e3-4deb-b8fb-ac8d0cb83362"/><p id="ad676913-e5b6-4eb4-bfe7-1bc2a26dd48c" class=""><strong>Response:</strong></p><p id="24e067fb-97c4-4935-b729-3a559a87b6f9" class="">Type: <code>Object</code></p><pre id="20840908-f92a-40fb-9ae5-9d5ff1d14bb1" class="code"><code>{
+        &quot;id&quot;: 14,
+        &quot;paymentMethodID&quot;: &quot;211180ba-000f-5000-9000-186281989733&quot;,
+        &quot;title&quot;: &quot;Bank card *4444&quot;,
+        &quot;first6&quot;: &quot;555555&quot;,
+        &quot;last4&quot;: &quot;4444&quot;,
+        &quot;expiryMonth&quot;: &quot;01&quot;,
+        &quot;expiryYear&quot;: &quot;2024&quot;,
+        &quot;cardType&quot;: &quot;MasterCard&quot;,
+        &quot;isPrimaryMethod&quot;: true
+}</code></pre></details></li></ul><hr id="ec1aa35d-5c75-403f-8e98-b0f8de2b5eac"/><ul id="d4e73d13-bf14-411e-848a-1a67ceb2fcc6" class="toggle"><li><details open=""><summary><span style="border-bottom:0.05em solid">Добавить способ оплаты</span></summary><p id="a405a55a-bb3d-40b5-9c35-2fcbae83ffb6" class=""><strong>Method: </strong><code>POST</code></p><hr id="95d5e46b-7699-41ac-bfd4-397979537f19"/><p id="bcf54f1f-1e25-4511-9d2c-b12e00b706ed" class=""><strong>Path:</strong><div class="indented"><p id="90d996f8-da0b-4ae1-9eb2-18a263c5be09" class=""><code>/users/:userID/payment-methods/add</code></p><p id="035bfa9d-69d3-40a9-94d8-0f442b650930" class=""><code>userID</code> – id пользователя (UUID);</p></div></p><p id="c4a6507f-9d13-4b8d-9c81-4d0dba38ebfd" class=""><strong>Headers: </strong><div class="indented"><p id="b579e03e-69f9-47ad-aabf-54e00cf00a54" class=""><code>Authorization:</code> <code>Bearer ${ token }</code></p><p id="8464f91f-1ff4-4508-9e7c-6e00287aa093" class=""><code>User-Agent:</code> <code>Mute Web</code></p></div></p><hr id="75b81fa8-8667-47e4-ba70-c2f8f8f1631d"/><p id="ba204421-6019-427f-90cc-dee3eba8b455" class=""><strong>Response:</strong></p><p id="7a3d6117-32e2-4d79-8aa4-617a99616a94" class="">Type: <code>Object</code></p><pre id="597672dd-ed97-4b71-b98a-0b97ea51835b" class="code"><code>{
+        &quot;id&quot;: 14,
+        &quot;paymentMethodID&quot;: &quot;211180ba-000f-5000-9000-186281989733&quot;,
+        &quot;title&quot;: &quot;Bank card *4444&quot;,
+        &quot;first6&quot;: &quot;555555&quot;,
+        &quot;last4&quot;: &quot;4444&quot;,
+        &quot;expiryMonth&quot;: &quot;01&quot;,
+        &quot;expiryYear&quot;: &quot;2024&quot;,
+        &quot;cardType&quot;: &quot;MasterCard&quot;,
+        &quot;isPrimaryMethod&quot;: true
+}</code></pre></details></li></ul><hr id="adeb07ae-bf31-4c92-8b6c-c97308afde82"/><ul id="f0a8c5ad-feb8-4b61-af05-7bfb19a0bca6" class="toggle"><li><details open=""><summary><span style="border-bottom:0.05em solid">Получить ссылку на оплату подписки в ЮКассе</span></summary><p id="e429fc58-dba3-4ae5-8b9e-ca55d0b51ea3" class=""><strong>Method: </strong><code>GET</code></p><hr id="0e02b083-6ee3-4d7b-b3fc-53728530b051"/><p id="15982b5b-edea-40df-b757-0e253e9bdff3" class=""><strong>Path:</strong><div class="indented"><p id="1e616c1a-14f1-49a7-9ce0-0ca3b3ccf3b7" class=""><code>/request-payment-page/:bundle</code></p><p id="bd999e5f-1985-4676-ad22-38610886a3e1" class=""><code>bundle</code> – id подписки. Например, <code>com.mute.app.subscription.regular.year</code></p></div></p><p id="defea519-db19-4dc6-9b9b-d7ea2b7d53b3" class=""><strong>Headers: </strong><div class="indented"><p id="5480d98f-9b5d-4ced-bc37-d54561ae53fb" class=""><code>Authorization:</code> <code>Bearer ${ token }</code></p><p id="59e91ad4-c6e7-4889-a387-ee9eaeb781df" class=""><code>User-Agent:</code> <code>Mute Web</code></p></div></p><hr id="5a8eb0af-0c12-474f-b4c9-3e312eacf9a2"/><p id="a357a62c-fa1d-4fb7-a3ac-653fb17673d4" class=""><strong>Response:</strong></p><p id="8cd27508-f00c-49f8-8215-aca0a3feb389" class="">Type: <code>String</code></p><pre id="af99905c-44e8-43b8-8a4a-51de07b13841" class="code"><code>https://yoomoney.ru/checkout/payments/v2/contract?orderId=2abd4e44-000f-5111-a000-191e9671cfaf</code></pre><p id="9c5a7074-2413-4b45-9396-71967bf6d2eb" class="">
+</p></details></li></ul><hr id="9da73b62-7b7f-4c05-81a7-bf252ba12ea8"/></div></article></body></html>
